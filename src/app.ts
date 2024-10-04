@@ -2,6 +2,7 @@ import express from 'express';
 import createHttpError from 'http-errors';
 import { config } from './config/config';
 import { globalErrorHandler, globalErrorHandler2 } from './middlewares/globalErrorHandler';
+import userRouter from './user/userRouter';
 
 const app = express();
 
@@ -12,10 +13,12 @@ app.get("/", (req, res, next) => {
     
 });
 
+app.use(express.json());
+app.use("/api/users", userRouter)
+
 app.use(globalErrorHandler);
 
-app.use(globalErrorHandler2);
+//app.use(globalErrorHandler2);
 
-//app.use(express.json());
 
 export default app;
